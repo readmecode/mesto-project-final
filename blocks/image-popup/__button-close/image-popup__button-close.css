@@ -1,0 +1,26 @@
+.image-popup__button-close {
+    position: relative;
+    left: 100%;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    white-space: nowrap;
+    user-select: none;
+    background-image: none;
+    background: none;
+    line-height: inherit;
+    font-size: inherit;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    height: auto;
+    width: auto;
+    border-radius: 0;
+    -webkit-appearance: none;
+    cursor: pointer;
+    outline: none;
+    border-spacing: 0;
+    text-indent: 0;
+    color: inherit;
+}

@@ -1,0 +1,25 @@
+.form__title {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-family: 'Inter', 'Inter-Black', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    padding-top: 34px;
+    padding-left: 36px;
+    padding-bottom: 54px;
+}
+
+@media screen and (max-width: 615px) {
+    .form__title {
+        padding-top: 25px;
+        padding-left: 22px;
+        padding-bottom: 50px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+}

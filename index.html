@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/index.css">
+    <title>Mesto</title>
+</head>
+
+<body class="body">
+    <div class="page">
+
+        <!-- header -->
+        <header class="header">
+            <img src="images/logo/logo.svg" alt="логотип" class="header__logo">
+        </header>
+
+        <main>
+
+            <!-- profile -->
+            <section class="profile">
+
+                <div class="profile__info">
+                    <img src="images/logo/Avatar.svg" alt="логотип" class="profile__avatar">
+                    <div class="profile__text">
+
+                        <div class="profile__text-upper">
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <button type="button" class="profile__edit-button">
+                           <img src="images/illustrations/EditButton.svg" alt="кнопка поменять" class="profile__edit-button">
+                            </button>
+                        </div>
+                        <p class="profile__description">Исследователь океана</p>
+
+                    </div>
+                </div>
+
+                <button type="button" class="profile__add-button profile__add-border">     
+                        <img src="images/illustrations/Vector(1).svg" alt="кнопка добавить" class="profile__add-button">
+                 </button>
+            </section>
+
+            <!-- elements -->
+
+            <section class="elements">
+
+            </section>
+
+            <template id="elements">
+                <div class="element">
+                    <button class="element__delete-button" type="button"><img src="images/logo/deleteButton.svg" alt=""></button>
+                   <button class="element__illustration-button" type="button"><img alt="иллюстрация" src="" class="element__illustration"></button> 
+                    <div class="element__block-bottom">
+                        <h3 class="element__title"></h3>
+                        <button type="button" class="element__icon"><img src="images/logo/Group.svg" alt="иконка"></button>
+                    </div>
+                </div>
+            </template>
+
+            <!--  окно для иллюстраций -->
+            <div class="image-popup">
+                <div class="image-popup__container">
+                    <button type="button" class="image-popup__button-close"><img src="images/illustrations/CloseIcon.svg" alt="кнопка закрыть"></button>
+                    <img src="" alt="" class="image-popup__illustration">
+                    <p class="image-popup__text"></p>
+                </div>
+            </div>
+
+        </main>
+        <!-- footer -->
+        <footer class="footer">
+            <p class="footer__description">&copy; 2022 mesto Russia</p>
+        </footer>
+
+
+        <!-- pop-up  -->
+
+        <div class="pop-up">
+            <div class="pop-up__container">
+                <button type="button" class="pop-up__button-close"><img src="images/illustrations/CloseIcon.svg" alt="кнопка закрыть"></button>
+                <form action="" name="form" class="form">
+                    <h3 class="form__title">Редактировать профиль</h3>
+                    <fieldset class="form__contact-info">
+                        <input type="text" name="name" class="form__place" placeholder="Жак-Ив Кусто">
+                        <input type="text" name="description" class="form__place form_type_name" placeholder="Исследователь океана">
+                        <button type="submit" class="form__button">сохранить</button>
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="popup">
+            <div class="popup__container">
+                <button type="button" class="popup__button-close"><img src="images/illustrations/CloseIcon.svg" alt="кнопка закрыть"></button>
+                <form action="" name="form-add" class="form">
+                    <h3 class="form-add__title">Редактировать профиль</h3>
+                    <fieldset class="form-add__contact-info">
+                        <input type="text" name="name" class="form-add__place" placeholder="Название">
+                        <input type="text" name="description" class="form-add__place form-add_type_name" placeholder="Ссылка на картинку">
+                        <button type="submit" class="form-add__button">создать</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script src="script/editProfile.js"></script>
+    <script src="script/currentCards.js"></script>
+    <script src="script/addCards.js"></script>
+</body>
+
+</html>

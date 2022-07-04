@@ -1,0 +1,22 @@
+.form__contact-info {
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-block-start: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    padding-block-end: 0;
+    min-inline-size: none;
+    border-width: 0;
+    border-style: none;
+    border-color: none;
+    border-image: none;
+    display: flex;
+    flex-direction: column;
+    padding-left: 36px;
+}
+
+@media screen and (max-width: 615px) {
+    .form__contact-info {
+        padding-left: 22px;
+    }
+}

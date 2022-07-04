@@ -1,0 +1,18 @@
+.image-popup {
+    background-color: rgba(0, 0, 0, 0.9);
+    background-position: center center;
+    width: 100vw;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    justify-content: center;
+    align-items: center;
+    transition: .3s linear;
+}
