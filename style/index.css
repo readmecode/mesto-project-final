@@ -48,36 +48,64 @@
 
 /* form */
 
-@import url('../blocks/form/form.css');
-@import url('../blocks/form/__contact-info/form__contact-info.css');
-@import url('../blocks/form/__place/form__place.css');
-@import url('../blocks/form/__title/form__title.css');
-@import url('../blocks/form/__button/form__button.css');
-
-/* pop-up */
-
-@import url('../blocks/pop-up/__button-close/pop-up__button-close.css');
-@import url('../blocks/pop-up/pop-up.css');
-@import url('../blocks/pop-up/_opened/pop-up_opened.css');
+@import url('../blocks/popup-form/__button/popup-form__button.css');
+@import url('../blocks/popup-form/__contact-info/popup-form__contact-info.css');
+@import url('../blocks/popup-form/__place/popup-form__place.css');
+@import url('../blocks/popup-form/__title/popup-form__title.css');
+@import url('../blocks/popup-form/popup-form.css');
 
 /* popup */
 
-@import url('../blocks/popup/__button-close/popup__button-close.css');
 @import url('../blocks/popup/popup.css');
 @import url('../blocks/popup/_opened/popup_opened.css');
+@import url('../blocks/popup/__button-close/popup__button-close.css');
+@import url('../blocks/popup/__title/popup__title.css');
+@import url('../blocks/popup/__illustration/popup__illustration.css');
+@import url('../blocks/popup/__container/popup__container.css');
 
-/* form */
+.popup-form__place_type_error {
+  border-bottom: 1px solid red;
+}
 
-@import url('../blocks/form-add/__button/form-add__button.css');
-@import url('../blocks/form-add/__contact-info/form-add__contact-info.css');
-@import url('../blocks/form-add/__place/form-add__place.css');
-@import url('../blocks/form-add/__title/form-add__title.css');
+.popup-form__place-error {
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 15px;
+margin: 0;
+color: red;
+}
+.input-name-error {
+position: absolute;
+bottom: 170px;
+height: 12px;
+}
 
-/* image-popup */
+.input-description-error {
+position: absolute;
+bottom: 112px;
+height: 12px;
+}
 
-@import url('../blocks/image-popup/__button-close/image-popup__button-close.css');
-@import url('../blocks/image-popup/__container/image-popup__container.css');
-@import url('../blocks/image-popup/__illustration/image-popup__illustration.css');
-@import url('../blocks/image-popup/__text/image-popup__text.css');
-@import url('../blocks/image-popup/image-popup.css');
-@import url('../blocks/image-popup/_opened/image-popup_opened.css');
+.input-title-error {
+  position: absolute;
+  bottom: 170px;
+  height: 12px;
+}
+
+.input-url-error {
+position: absolute;
+bottom: 112px;
+height: 12px;
+}
+
+.popup-form__button_inactive{
+  pointer-events: none;
+  opacity: 0.4;
+  cursor: default;
+  border: 1px solid #000000;
+  border-radius: 2px;
+  background-color: transparent;
+  color: black;
+}

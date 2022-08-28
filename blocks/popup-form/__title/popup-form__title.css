@@ -1,4 +1,4 @@
-.form-add__title {
+.popup-form__title {
     margin-block-start: 0;
     margin-block-end: 0;
     margin-inline-start: 0px;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 615px) {
-    .form-add__title {
+    .popup-form__title {
         padding-top: 25px;
         padding-left: 22px;
         padding-bottom: 50px;

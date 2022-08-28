@@ -25,7 +25,6 @@
                 <div class="profile__info">
                     <img src="images/logo/Avatar.svg" alt="логотип" class="profile__avatar">
                     <div class="profile__text">
-
                         <div class="profile__text-upper">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
                             <button type="button" class="profile__edit-button">
@@ -33,13 +32,12 @@
                             </button>
                         </div>
                         <p class="profile__description">Исследователь океана</p>
-
                     </div>
                 </div>
 
                 <button type="button" class="profile__add-button profile__add-border">     
-                        <img src="images/illustrations/Vector(1).svg" alt="кнопка добавить" class="profile__add-button">
-                 </button>
+                    <img src="images/illustrations/Vector(1).svg" alt="кнопка добавить" class="profile__add-button">
+                </button>
             </section>
 
             <!-- elements -->
@@ -47,8 +45,8 @@
             <section class="elements">
 
             </section>
-
-            <template id="elements">
+            
+            <template id="card-element">
                 <div class="element">
                     <button class="element__delete-button" type="button"><img src="images/logo/deleteButton.svg" alt=""></button>
                    <button class="element__illustration-button" type="button"><img alt="иллюстрация" src="" class="element__illustration"></button> 
@@ -60,11 +58,11 @@
             </template>
 
             <!--  окно для иллюстраций -->
-            <div class="image-popup">
-                <div class="image-popup__container">
-                    <button type="button" class="image-popup__button-close"><img src="images/illustrations/CloseIcon.svg" alt="кнопка закрыть"></button>
-                    <img src="" alt="" class="image-popup__illustration">
-                    <p class="image-popup__text"></p>
+            <div id="imageModal" class="popup">
+                <div class="popup__container">
+                    <button type="button" class="popup__button-close"></button>
+                    <img src="" alt="" class="popup__illustration">
+                    <h3 class="popup__title"></h3>
                 </div>
             </div>
 
@@ -77,30 +75,33 @@
 
         <!-- pop-up  -->
 
-        <div class="pop-up">
-            <div class="pop-up__container">
-                <button type="button" class="pop-up__button-close"><img src="images/illustrations/CloseIcon.svg" alt="кнопка закрыть"></button>
-                <form action="" name="form" class="form">
-                    <h3 class="form__title">Редактировать профиль</h3>
-                    <fieldset class="form__contact-info">
-                        <input type="text" name="name" class="form__place" placeholder="Жак-Ив Кусто">
-                        <input type="text" name="description" class="form__place form_type_name" placeholder="Исследователь океана">
-                        <button type="submit" class="form__button">сохранить</button>
+        <div id="editInfo" class="popup">
+            <div class="popup__container">
+                <button type="button" class="popup__button-close"></button>
+                <form action="" name="form" class="popup-form">
+                    <h3 class="popup-form__title" novalidate>Редактировать профиль</h3>
+                    <fieldset class="popup-form__contact-info">
+                        <input id="input-name" type="text" name="name" class="popup-form__place" placeholder="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+                            <span class="input-name-error popup-form__place-error"></span>
+                        <input id="input-description" type="text" name="description" class="popup-form__place popup-form_type_name" placeholder="Исследователь океана" minlength="2" maxlength="200" required>
+                            <span class="input-description-error popup-form__place-error"></span>
+                        <button type="submit" class="popup-form__button">сохранить</button>
                     </fieldset>
                 </form>
-
             </div>
         </div>
 
-        <div class="popup">
+        <div id="addCard" class="popup">
             <div class="popup__container">
-                <button type="button" class="popup__button-close"><img src="images/illustrations/CloseIcon.svg" alt="кнопка закрыть"></button>
-                <form action="" name="form-add" class="form">
-                    <h3 class="form-add__title">Редактировать профиль</h3>
-                    <fieldset class="form-add__contact-info">
-                        <input type="text" name="name" class="form-add__place" placeholder="Название">
-                        <input type="text" name="description" class="form-add__place form-add_type_name" placeholder="Ссылка на картинку">
-                        <button type="submit" class="form-add__button">создать</button>
+                <button type="button" class="popup__button-close"></button>
+                <form action="" name="formAdd" class="popup-form" novalidate>
+                    <h3 class="popup-form__title">Новое место</h3>
+                    <fieldset class="popup-form__contact-info">
+                        <input id="input-title" type="text" name="text" class="popup-form__place" placeholder="Название" minlength="2" maxlength="30" required>
+                            <span class="input-title-error popup-form__place-error"></span>
+                        <input id="input-url" type="url" name="url" class="popup-form__place popup-form_type_name" placeholder="Ссылка на картинку" required> 
+                           <span class="input-url-error popup-form__place-error"></span>
+                        <button type="submit" class="popup-form__button">создать</button>
                     </fieldset>
                 </form>
             </div>
@@ -110,9 +111,7 @@
 
     </div>
 
-    <script src="script/editProfile.js"></script>
-    <script src="script/currentCards.js"></script>
-    <script src="script/addCards.js"></script>
+    <script type="module" src="components/main.js"></script>
 </body>
 
 </html>
