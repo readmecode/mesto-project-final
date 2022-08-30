@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/index.css">
     <title>Mesto</title>
 </head>
 
@@ -14,7 +13,7 @@
 
         <!-- header -->
         <header class="header">
-            <img src="images/logo/logo.svg" alt="логотип" class="header__logo">
+            <img src="<%=require('./images/logo/logo.svg')%>" alt="логотип" class="header__logo">
         </header>
 
         <main>
@@ -23,12 +22,12 @@
             <section class="profile">
 
                 <div class="profile__info">
-                    <img src="images/logo/Avatar.svg" alt="логотип" class="profile__avatar">
+                    <img src="<%=require('./images/logo/Avatar.svg')%>" alt="логотип" class="profile__avatar">
                     <div class="profile__text">
                         <div class="profile__text-upper">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
                             <button type="button" class="profile__edit-button">
-                           <img src="images/illustrations/EditButton.svg" alt="кнопка поменять" class="profile__edit-button">
+                           <img src="<%=require('./images/illustrations/EditButton.svg')%>" alt="кнопка поменять" class="profile__edit-button">
                             </button>
                         </div>
                         <p class="profile__description">Исследователь океана</p>
@@ -36,7 +35,7 @@
                 </div>
 
                 <button type="button" class="profile__add-button profile__add-border">     
-                    <img src="images/illustrations/Vector(1).svg" alt="кнопка добавить" class="profile__add-button">
+                    <img src="<%=require('./images/illustrations/Vector(1).svg')%>" alt="кнопка добавить" class="profile__add-button">
                 </button>
             </section>
 
@@ -48,11 +47,11 @@
             
             <template id="card-element">
                 <div class="element">
-                    <button class="element__delete-button" type="button"><img src="images/logo/deleteButton.svg" alt=""></button>
+                    <button class="element__delete-button" type="button"><img src="<%=require('./images/logo/deleteButton.svg')%>" alt="Кнопка удалить"></button>
                    <button class="element__illustration-button" type="button"><img alt="иллюстрация" src="" class="element__illustration"></button> 
                     <div class="element__block-bottom">
                         <h3 class="element__title"></h3>
-                        <button type="button" class="element__icon"><img src="images/logo/Group.svg" alt="иконка"></button>
+                        <button type="button" class="element__icon"><img src="<%=require('./images/logo/Group.svg')%>" alt="иконка"></button>
                     </div>
                 </div>
             </template>
@@ -64,6 +63,7 @@
                     <img src="" alt="" class="popup__illustration">
                     <h3 class="popup__title"></h3>
                 </div>
+                <div class="popup__overlay"></div>
             </div>
 
         </main>
@@ -89,6 +89,7 @@
                     </fieldset>
                 </form>
             </div>
+            <div class="popup__overlay"></div>
         </div>
 
         <div id="addCard" class="popup">
@@ -105,13 +106,14 @@
                     </fieldset>
                 </form>
             </div>
+            <div class="popup__overlay"></div>
         </div>
 
 
 
     </div>
 
-    <script type="module" src="components/main.js"></script>
+    <script type="module" src="./components/index.js"></script>
 </body>
 
 </html>

@@ -5,20 +5,13 @@
     border: none;
     white-space: nowrap;
     user-select: none;
-    background-image: none;
-    background: none;
     line-height: inherit;
     font-size: inherit;
-    padding: 0;
-    margin: 0;
-    min-width: 0;
-    height: auto;
-    width: auto;
     border-radius: 0;
     -webkit-appearance: none;
     cursor: pointer;
     outline: none;
-    border-spacing: 0;
+
     text-indent: 0;
     color: inherit;
     width: 358px;
@@ -41,3 +34,13 @@
         margin-top: 50px;
     }
 }
+
+.popup-form__button_inactive{
+    pointer-events: none;
+    opacity: 0.4;
+    cursor: default;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    background-color: transparent;
+    color: black;
+  }

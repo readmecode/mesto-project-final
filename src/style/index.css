@@ -100,12 +100,10 @@ bottom: 112px;
 height: 12px;
 }
 
-.popup-form__button_inactive{
-  pointer-events: none;
-  opacity: 0.4;
-  cursor: default;
-  border: 1px solid #000000;
-  border-radius: 2px;
-  background-color: transparent;
-  color: black;
+
+
+.popup__overlay {
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
 }
