@@ -3,7 +3,6 @@ import {initialCards, scroll, profile, profileName, profileAbout, editButton, ad
   cardTemplate, cardContainer, popupImage, imagePopup, titlePopup
 } from './utils.js'
 
-
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   scroll.classList.add('body_active')

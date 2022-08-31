@@ -8,7 +8,6 @@ import {openCardPopup, deleteCard, createCard} from './card.js'
 
 
 
-
 document.addEventListener('keydown', closeEscBtn);
 formProfileEdit.addEventListener('submit', editProfileInfo)
 formCard.addEventListener('submit', cardAddProfile)

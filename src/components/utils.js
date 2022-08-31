@@ -45,14 +45,12 @@ const formCard = popupCard.querySelector('.popup-form')
 
 const formProfile = popupProfile.querySelector('.popup-form')
 
-
 /* card */
 const cardTemplate = document.querySelector('#card-element').content;
 const cardContainer = document.querySelector('.elements')
 const popupImage = document.querySelector('#imageModal');
 const imagePopup = popupImage.querySelector('.popup__illustration');
 const titlePopup = popupImage.querySelector('.popup__title');
-
 
 export {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
   popups, popupOverlay, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
