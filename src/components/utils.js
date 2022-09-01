@@ -37,7 +37,7 @@ const addButton = document.querySelector('.profile__add-button');
 
 /* profile */
 const popups = document.querySelectorAll('.popup');
-const popupOverlay = document.querySelectorAll('.popup__overlay')
+const popupOverlays = document.querySelectorAll('.popup__overlay')
 const popupProfile = document.querySelector('#editInfo');
 const formProfileEdit = popupProfile.querySelector('.popup-form')
 const popupCard = document.querySelector('#addCard');
@@ -53,6 +53,6 @@ const imagePopup = popupImage.querySelector('.popup__illustration');
 const titlePopup = popupImage.querySelector('.popup__title');
 
 export {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
-  popups, popupOverlay, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
+  popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
   cardTemplate, cardContainer, popupImage, imagePopup, titlePopup
 }

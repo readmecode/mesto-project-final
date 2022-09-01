@@ -81,10 +81,10 @@
                 <form action="" name="form" class="popup-form">
                     <h3 class="popup-form__title" novalidate>Редактировать профиль</h3>
                     <fieldset class="popup-form__contact-info">
-                        <input pattern="[A_Za-zА-Яа-я0-9- ]{2,40}" id="input-name" type="text" name="name" class="popup-form__place" placeholder="Жак-Ив Кусто" minlength="2" maxlength="40" required>
-                            <span data-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" class="input-name-error popup-form__place-error"></span>
-                        <input pattern="[A_Za-zА-Яа-я0-9- ]{2,200}" id="input-description" type="text" name="description" class="popup-form__place popup-form_type_name" placeholder="Исследователь океана" minlength="2" maxlength="200" required>
-                            <span data-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" class="input-description-error popup-form__place-error"></span>
+                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Z]+$" id="input-name" type="text" name="name" class="popup-form__place" placeholder="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+                            <span class="input-name-error popup-form__place-error"></span>
+                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Z]+$" id="input-description" type="text" name="description" class="popup-form__place popup-form_type_name" placeholder="Исследователь океана" minlength="2" maxlength="200" required>
+                            <span class="input-description-error popup-form__place-error"></span>
                         <button type="submit" class="popup-form__button">сохранить</button>
                     </fieldset>
                 </form>
@@ -98,9 +98,9 @@
                 <form action="" name="formAdd" class="popup-form" novalidate>
                     <h3 class="popup-form__title">Новое место</h3>
                     <fieldset class="popup-form__contact-info">
-                        <input [A_Za-zА-Яа-я0-9- ]{2,30} id="input-title" type="text" name="text" class="popup-form__place" placeholder="Название" minlength="2" maxlength="30" required>
+                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Z]+$" id="input-title" type="text" name="text" class="popup-form__place" placeholder="Название" minlength="2" maxlength="30" required>
                             <span class="input-title-error popup-form__place-error"></span>
-                        <input id="input-url" type="url" name="url" class="popup-form__place popup-form_type_name" placeholder="Ссылка на картинку" required> 
+                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" id="input-url" type="url" name="url" class="popup-form__place popup-form_type_name" placeholder="Ссылка на картинку" required> 
                            <span class="input-url-error popup-form__place-error"></span>
                         <button type="submit" class="popup-form__button">создать</button>
                     </fieldset>

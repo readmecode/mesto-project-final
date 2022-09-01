@@ -1,51 +1,59 @@
-const showError = (formElement, input, errorMessage) => {
+const showError = (formElement, input, errorMessage, setting) => {
   const errorElement = formElement.querySelector(`.${input.id}-error`);
-  input.classList.add('popup-form__place_type_error');
-  errorElement.classList.add('popup-form__place_error_active');
+  input.classList.add(setting.inputErrorClass);
+  errorElement.classList.add(setting.errorClass);
   errorElement.textContent = errorMessage
 }
 
-const hideError = (formElement, input) => {
+const hideError = (formElement, input, setting) => {
   const errorElement = formElement.querySelector(`.${input.id}-error`);
-  input.classList.remove('popup-form__place_type_error');
-  errorElement.classList.remove('popup-form__place_error_active');
+  input.classList.remove(setting.inputErrorClass);
+  errorElement.classList.remove(setting.errorClass);
   errorElement.textContent = '';
 }
 
-const checkInputValidity = (formElement, input) => {
-  if(!input.validity.valid) {
-    showError(formElement, input, input.validationMessage)
+
+const checkInputValidity = (formElement, input, setting) => {
+  if(input.validity.patternMismatch) {
+    input.setCustomValidity(input.dataset.errorMessage)
   }
   else {
-    hideError(formElement, input)
+    input.setCustomValidity("")
+  }
+
+  if(!input.validity.valid) {
+    showError(formElement, input, input.validationMessage, setting)
+  }
+  else {
+    hideError(formElement, input, setting)
   }
 }
 
 
-const setEventListener = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup-form__place'));
-  const buttonElement = formElement.querySelector('.popup-form__button');
+const setEventListener = (formElement, setting) => {
+  const inputList = Array.from(formElement.querySelectorAll(setting.inputSelector));
+  const buttonElement = formElement.querySelector(setting.submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, setting);
 
   inputList.forEach(input => {
     input.addEventListener('input', () => {
-      checkInputValidity(formElement, input)
-      toggleButtonState(inputList, buttonElement)
+      checkInputValidity(formElement, input, setting)
+      toggleButtonState(inputList, buttonElement, setting)
     });
   });
 };
 
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.popup-form'));
+const enableValidation = (setting) => {
+  const formList = Array.from(document.querySelectorAll(setting.formSelector));
   formList.forEach(formElement => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault()
     });
-
-    const fieldsetList = Array.from(formElement.querySelectorAll('.popup-form__contact-info'));
+/* form Element? */
+    const fieldsetList = Array.from(document.querySelectorAll(setting.formSelector));
     fieldsetList.forEach((fieldset) => {
-      setEventListener(fieldset)
+      setEventListener(fieldset, setting)
     })
   });
 };
@@ -56,17 +64,22 @@ const hasInvalidInput = (inputList) => {
   });
 }
 
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement, setting) => {
   if(hasInvalidInput(inputList, buttonElement)) {
-    buttonElement.classList.add('popup-form__button_inactive')
+    buttonElement.classList.add(setting.inputErrorClass) || buttonElement.setAttribute('disabled', 'disabled')
   }
   else {
-    buttonElement.classList.remove('popup-form__button_inactive')
+    buttonElement.classList.remove(setting.inputErrorClass) || buttonElement.removeAttribute('disabled', 'disabled')
   }
 }
 
-
-
-enableValidation()
+enableValidation({
+  formSelector: '.popup-form',
+  inputSelector: '.popup-form__place',
+  submitButtonSelector: '.popup-form__button',
+  inactiveButtonClass: 'popup-form__button_inactive',
+  inputErrorClass: 'popup-form__place_type_error',
+  errorClass: 'popup-form__place_error_active'
+});
 
 export {showError, hideError, checkInputValidity, setEventListener, enableValidation}
