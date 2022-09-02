@@ -8,6 +8,7 @@ import {openCardPopup, deleteCard, createCard} from './card.js'
 
 
 
-document.addEventListener('keydoswn', closeEscBtn);
+
+
 formProfileEdit.addEventListener('submit', editProfileInfo)
 formCard.addEventListener('submit', cardAddProfile)

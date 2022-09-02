@@ -6,11 +6,13 @@ import {openCardPopup, deleteCard, createCard} from './card.js'
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   scroll.classList.add('body_active')
+  document.addEventListener('keydown', closeEscBtn);
 };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
   scroll.classList.remove('body_active')
+  document.removeEventListener('keydown', closeEscBtn);
 }
 
 function cardAddProfile(evt) {
@@ -30,9 +32,8 @@ popupOverlays.forEach(overlay => {
 
 function closeEscBtn(evt) {
   if(evt.key === 'Escape') {
-      popups.forEach(popup => { 
-          closePopup(popup) 
-      }); 
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
   }
 } 
 
@@ -62,5 +63,6 @@ function editProfileInfo(evt) {
   evt.preventDefault();
   profileName.textContent = formProfileEdit.name.value;
   profileAbout.textContent = formProfileEdit.description.value;
+  closePopup(popupProfile)
 } 
 export {openPopup, closePopup, cardAddProfile, closeEscBtn, closeByClick, editProfileInfo}
