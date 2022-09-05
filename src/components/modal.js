@@ -3,6 +3,9 @@ import {initialCards, scroll, profile, profileName, profileAbout, editButton, ad
   cardTemplate, cardContainer, popupImage, imagePopup, titlePopup
 } from './utils.js'
 import {openCardPopup, deleteCard, createCard} from './card.js'
+
+/* --- */
+import  {editUserProfile, userServe, getInitialCards} from './api.js'
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   scroll.classList.add('body_active')
@@ -64,5 +67,9 @@ function editProfileInfo(evt) {
   profileName.textContent = formProfileEdit.name.value;
   profileAbout.textContent = formProfileEdit.description.value;
   closePopup(popupProfile)
-} 
+  editUserProfile({
+    name: formProfileEdit.name.value,
+    about: formProfileEdit.description.value
+  })
+}
 export {openPopup, closePopup, cardAddProfile, closeEscBtn, closeByClick, editProfileInfo}

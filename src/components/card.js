@@ -3,7 +3,7 @@ import {initialCards, scroll, profile, profileName, profileAbout, editButton, ad
   cardTemplate, cardContainer, popupImage, imagePopup, titlePopup
 } from './utils.js'
 import {openPopup, closePopup, cardAddProfile, closeEscBtn, closeByClick, editProfileInfo} from './modal.js'
-
+import  {editUserProfile, userServe, getInitialCards} from './api.js'
 function openCardPopup(element) {
   imagePopup.src = element.src;
   imagePopup.alt = element.alt;
@@ -16,11 +16,13 @@ function deleteCard(cardElement) {
 }
 
 function createCard(name, link) {
+  
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const cardImage = cardElement.querySelector('.element__illustration')
+  const cardText = cardElement.querySelector('.element__title')
   cardImage.src = link;
   cardImage.alt = name
-  cardElement.querySelector('.element__title').textContent = name
+  cardText.textContent = name
   cardImage.addEventListener('click', evt => {
       openCardPopup(cardImage);
   })
@@ -30,13 +32,18 @@ function createCard(name, link) {
 
   cardElement.querySelector('.element__delete-button').addEventListener('click', evt => {
       deleteCard(cardElement)
+
   });
+/*   addCardServer({
+    name: cardImage.value,
+    link: cardText.value
+  }) */
   return cardElement
 }
 
-initialCards.forEach(card => {
+/* initialCards.forEach(card => {
   const newCard = createCard(card.name, card.link)
   cardContainer.prepend(newCard)
-})
+}) */
 
 export {openCardPopup, deleteCard, createCard}
