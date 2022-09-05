@@ -3,7 +3,7 @@ import {initialCards, scroll, profile, profileName, profileAbout, editButton, ad
   cardTemplate, cardContainer, popupImage, imagePopup, titlePopup
 } from './utils.js'
 import {openPopup, closePopup, cardAddProfile, closeEscBtn, closeByClick, editProfileInfo} from './modal.js'
-import  {editUserProfile, userServe, getInitialCards} from './api.js'
+import  {editUserProfile, userServe, getInitialCards, addCardServer} from './api.js'
 function openCardPopup(element) {
   imagePopup.src = element.src;
   imagePopup.alt = element.alt;
@@ -13,6 +13,7 @@ function openCardPopup(element) {
 
 function deleteCard(cardElement) {
   cardElement.remove()
+  deleteCardServer(cardElement.remove())
 }
 
 function createCard(name, link) {
@@ -34,10 +35,6 @@ function createCard(name, link) {
       deleteCard(cardElement)
 
   });
-/*   addCardServer({
-    name: cardImage.value,
-    link: cardText.value
-  }) */
   return cardElement
 }
 

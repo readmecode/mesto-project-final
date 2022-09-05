@@ -6,7 +6,7 @@ cardTemplate, cardContainer, popupImage, imagePopup, titlePopup} from './utils.j
 import {openPopup, closePopup, cardAddProfile, closeEscBtn, closeByClick, editProfileInfo} from './modal.js'
 import {openCardPopup, deleteCard, createCard} from './card.js'
 
-import {editUserProfile, userServe, getInitialCards} from './api.js'
+import {editUserProfile, userServe, getInitialCards, addCardServer} from './api.js'
 
 /* userServe() */
 userServe()
@@ -20,18 +20,14 @@ getInitialCards()
   data.forEach (item => {
     const card =  createCard(
     item.name,
-    item.link 
+    item.link
   )
   cardContainer.prepend(card)
   })
 })
 
-/* addCardServer()
-.then(item => {
-  cardImage.src = cardLink, 
-  cardText.textContent = cardName
-  console.log(item)
-}) */
+
+
 formProfileEdit.addEventListener('submit', editProfileInfo)
 formCard.addEventListener('submit', cardAddProfile)
 

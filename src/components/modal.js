@@ -3,9 +3,7 @@ import {initialCards, scroll, profile, profileName, profileAbout, editButton, ad
   cardTemplate, cardContainer, popupImage, imagePopup, titlePopup
 } from './utils.js'
 import {openCardPopup, deleteCard, createCard} from './card.js'
-
-/* --- */
-import  {editUserProfile, userServe, getInitialCards} from './api.js'
+import  {editUserProfile, userServe, getInitialCards, addCardServer} from './api.js'
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   scroll.classList.add('body_active')
@@ -23,6 +21,7 @@ function cardAddProfile(evt) {
   const linkImage = formCard.url.value;
   const nameImage = formCard.text.value
   const newCard = createCard(nameImage, linkImage);
+  addCardServer(nameImage, linkImage)
   cardContainer.prepend(newCard)
   closePopup(popupCard)
   formCard.text.value = ''
