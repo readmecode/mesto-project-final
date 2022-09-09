@@ -6,28 +6,49 @@ const config = {
   }
 }
 
-const userServe = () => {
+
+
+const checkResult = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  else {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+}
+/* Загрузка информации о пользователе с сервера */
+const usersLoad = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'GET',
     headers: config.headers
   })
-  .then(res => {
-    return res.json()
-  })
+  .then(res => checkResult(res))
 }
 
-const getInitialCards = () => {
+/* загрузка аватара */
+const userEditIcon = (avatarValue) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: `${avatarValue.value}`
+    })
+  })
+  .then(res => checkResult(res))
+}
+
+
+/* Загрузка карточек с сервера */
+const cardsLoad = () => {
   return fetch(`${config.baseUrl}/cards`, {
     method: 'GET',
     headers: config.headers
   })
-  .then(res => {
-    return res.json()
-  })
+  .then(res => checkResult(res))
 }
 
-const editUserProfile = (data) => {
-  console.log(data)
+/* Редактирование профиля */
+const editProfileUser = (data) => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
@@ -36,13 +57,10 @@ const editUserProfile = (data) => {
       about: data.about
     })
   })
-  .then(res => {
-    return res.json()
-  })
-
+  .then(res => checkResult(res))
 }
-
-const addCardServer = (cardName, cardLink) => {
+/* создание карточки */
+const createCardLoad = (cardName, cardLink) => {
   return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
     headers: config.headers,
@@ -51,19 +69,43 @@ const addCardServer = (cardName, cardLink) => {
       link: cardLink
     })
   })
-  .then(res => res.json())
+  .then(res => checkResult(res))
+}
+/* удаление карточки */
+const deleteCardUser = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+  .then(res => checkResult(res))
 }
 
-/* const cardLike = (like) => {
-  fetch(`${config.baseUrl}/cards`)
-} */
+/*постановка лайка */
+const cardPutLike = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: config.headers
+  })
+  .then(res => checkResult(res))
+}
+/* удаление лайка */
+const cardDeleteLike = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers
+  })
+  .then(res => checkResult(res))
+}
 
 
-
-export {editUserProfile, userServe, getInitialCards, addCardServer}
-
-
-
-
-  
-
+export {
+  checkResult,
+  usersLoad,
+  cardsLoad,
+  editProfileUser,
+  createCardLoad,
+  deleteCardUser,
+  cardPutLike, 
+  cardDeleteLike,
+  userEditIcon
+}
