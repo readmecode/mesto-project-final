@@ -42,7 +42,6 @@ const popupProfile = document.querySelector('#editInfo');
 const formProfileEdit = popupProfile.querySelector('.popup-form')
 const popupCard = document.querySelector('#addCard');
 const formCard = popupCard.querySelector('.popup-form')
-/* const popupEditIcon = document.querySelector('#editIcon') */
 
 const formProfile = popupProfile.querySelector('.popup-form')
 
@@ -53,12 +52,7 @@ const popupImage = document.querySelector('#imageModal');
 const imagePopup = popupImage.querySelector('.popup__illustration');
 const titlePopup = popupImage.querySelector('.popup__title');
 
-/* editIcon */
-const popupEditIcon = document.querySelector('#editIcon');
-const profileAvatarBtn = document.querySelector('.profile__avatar-btn');
-const profileAvatar = profileAvatarBtn.querySelector('.profile__avatar')
-const formEditIcon = popupEditIcon.querySelector('.popup-form')
 export {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
   popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
-  cardTemplate, cardContainer, popupImage, imagePopup, titlePopup, popupEditIcon, profileAvatarBtn, formEditIcon, profileAvatar
+  cardTemplate, cardContainer, popupImage, imagePopup, titlePopup
 }

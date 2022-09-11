@@ -1,9 +1,8 @@
-import {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
-  popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
-  cardTemplate, cardContainer, popupImage, imagePopup, titlePopup, popupEditIcon, profileAvatar, formEditIcon, profileAvatarBtn
+import {cardTemplate, popupImage, imagePopup, titlePopup
 } from './utils.js'
-import {openPopup, closePopup, cardAddProfile, closeEscBtn, closeByClick, editProfileInfo} from './modal.js'
-import {checkResult, usersLoad, cardsLoad, editProfileUser, createCardLoad, deleteCardUser,  cardPutLike,  cardDeleteLike, userEditIcon} from './api.js'
+import {openPopup} from './modal.js'
+import { myId } from './index.js';
+
 function openCardPopup(element) {
   imagePopup.src = element.src;
   imagePopup.alt = element.alt;
@@ -11,58 +10,51 @@ function openCardPopup(element) {
   openPopup(popupImage)
 } 
 
-function deleteCard(cardElement) {
-  cardElement.remove()
-}
-
-function createCard(name, link, elementId, likeCount, liked, ownerId, userId) {
+function createCard(name, link, likes, ownerId, elemId, handleDeleteCard, handleAddLike, handleDeleteLike) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const cardImage = cardElement.querySelector('.element__illustration');
-  const deleteBtn = cardElement.querySelector('.element__delete-button');
-  const cardLike = cardElement.querySelector('.element__icon')
-  const cardLikeCount = cardElement.querySelector('.element__like-count')
+  const deleteCard = cardElement.querySelector('.element__delete-button')
+  const cardLike = cardElement.querySelector('.element__icon');
+  const cardLikes = cardElement.querySelector('.element__likes')
+  cardLikes.textContent = likes.length
 
-  cardLikeCount.textContent = likeCount
   cardImage.src = link;
   cardImage.alt = name
+
   cardElement.querySelector('.element__title').textContent = name
   cardImage.addEventListener('click', evt => {
       openCardPopup(cardImage);
   })
 
-    if(liked) {
+  if(likes) {
+    const myLike = likes.some(like => {
+      return like._id === myId
+    })
+    if(myLike) {
       cardLike.classList.add('element__icon_active')
-    } 
-
-    if(ownerId !== userId) {
-      deleteBtn.remove()
     }
+  }
+  
   cardLike.addEventListener('click', evt => {
     if(cardLike.classList.contains('element__icon_active')) {
-      cardDeleteLike(elementId)
-      .then(res => { 
-        likeCount --
-        cardLikeCount.textContent = likeCount
-      })
-      .then(cardLike.classList.remove('element__icon_active'))
+      handleDeleteLike(elemId, cardLikes, cardLike)
     }
     else {
-      cardPutLike(elementId)
-      .then(res => { 
-        likeCount ++
-        cardLikeCount.textContent = likeCount
-      })
-      .then(cardLike.classList.add('element__icon_active'))
+      handleAddLike(elemId, cardLikes, cardLike)
     }
   })
 
-  deleteBtn.addEventListener('click', evt => {
-    deleteCardUser(elementId)
-    deleteCard(cardElement)
-  });
+  if(myId !== ownerId) {
+    deleteCard.classList.add('element__delete-button_disabled')
+  }
+  else {
+  deleteCard.addEventListener('click', evt => {
+    handleDeleteCard(elemId, cardElement)
+  })
+}
   return cardElement
 }
 
 
 
-export {openCardPopup, deleteCard, createCard}
+export {openCardPopup,  createCard}

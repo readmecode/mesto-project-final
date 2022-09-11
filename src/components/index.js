@@ -1,39 +1,81 @@
-import '../style/index.css';
+import '../style/index.css'; // добавьте импорт главного файла стилей
 import {showError, hideError, checkInputValidity, setEventListener, enableValidation} from './validation.js'
 import {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
-  popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
-  cardTemplate, cardContainer, popupImage, imagePopup, titlePopup, popupEditIcon, profileAvatar, formEditIcon, profileAvatarBtn
-} from './utils.js'
-import {openPopup, closePopup, cardAddProfile, closeEscBtn, closeByClick, editProfileInfo, popupEditIconForm} from './modal.js'
-import {openCardPopup, deleteCard, createCard} from './card.js'
-import {checkResult, usersLoad, cardsLoad, editProfileUser, createCardLoad, deleteCardUser,  cardPutLike,  cardDeleteLike, userEditIcon} from './api.js'
+popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
+cardTemplate, cardContainer, popupImage, imagePopup, titlePopup} from './utils.js'
+import {openPopup, closePopup, cardAddProfile, closeEscBtn, closeByClick, editProfileInfo} from './modal.js'
+import { createCard} from './card.js'
+import {getUserInfo, getInitialCards, createCardLoad, deleteCardUser, addLike, deleteLike} from './api.js'
 
-/* Загрузка информации о пользователе с сервера */
-let userId = null
 
-usersLoad()
-.then(data => {
-  profileName.textContent = data.name,
-  profileAbout.textContent = data.about
-  profileAvatar.src = data.avatar
-  userId = data._id
+export let myId
+
+Promise.all([getUserInfo(), getInitialCards()])
+.then(res => {
+  myId = res[0]._id
+  console.log(res[0]._id)
+  profileName.textContent = res[0].name
+  profileAbout.textContent = res[0].about
+  res[1].forEach(data => {
+    const card = createCard(data.name, data.link, data.likes, data.owner._id, data._id, handleDeleteCard, handleAddLike, handleDeleteLike)
+    cardContainer.append(card)
+  })
+})
+.catch(err => {
+  console.log(err)
 })
 
-/* Загрузка карточек с сервера */
-cardsLoad()
-.then(data => {
-  data.forEach(item => {
-    let liked = false
-    item.likes.forEach(like => {
-      if(like._id == userId) {
-        liked = true
-      }
-    })
-    const card = createCard(item.name, item.link, item._id, item.likes.length, liked, item.owner._id, userId)
-    cardContainer.prepend(card)
-  }) 
-})
+function submitAddCardForm(evt) {
+  evt.preventDefault()
+  const linkImage = formCard.url.value;
+  const nameImage = formCard.text.value
+  createCardLoad(nameImage, linkImage)
+  .then(item => {
+    const newCard = createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike);
+    cardContainer.prepend(newCard)
+  })
+  .then(() => {
+    formCard.text.value = ''
+    formCard.url.value = ''
+    closePopup(popupCard)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+} 
+
+function handleDeleteCard(elemId, elementCard) {
+  deleteCardUser(elemId)
+  .then(res => {
+    elementCard.remove()
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+function handleAddLike(elemId, cardLikes, cardLike) {
+  addLike(elemId)
+  .then((res) => {
+    cardLikes.textContent = res.likes.length
+    cardLike.classList.add('element__icon_active')
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+function handleDeleteLike(elemId, cardLikes, cardLike) {
+  deleteLike(elemId)
+  .then((res) => {
+    cardLikes.textContent = res.likes.length
+    cardLike.classList.remove('element__icon_active')
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
 
 formProfileEdit.addEventListener('submit', editProfileInfo)
-formCard.addEventListener('submit', cardAddProfile)
-formEditIcon.addEventListener('submit', popupEditIconForm)
+formCard.addEventListener('submit', submitAddCardForm)
+
