@@ -1,15 +1,6 @@
-import {cardTemplate, popupImage, imagePopup, titlePopup} from './utils.js'
-import {openPopup} from './modal.js'
-import { myId } from './index.js';
+import {cardTemplate} from './utils.js'
 
-function openCardPopup(element) {
-  imagePopup.src = element.src;
-  imagePopup.alt = element.alt;
-  titlePopup.textContent = element.alt
-  openPopup(popupImage)
-} 
-
-function createCard(name, link, likes, ownerId, elemId, handleDeleteCard, handleAddLike, handleDeleteLike) {
+function createCard(name, link, likes, ownerId, elemId, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const cardImage = cardElement.querySelector('.element__illustration');
   const deleteCard = cardElement.querySelector('.element__delete-button')

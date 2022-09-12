@@ -60,8 +60,17 @@ const profileAvatar = profileAvatarBtn.querySelector('.profile__avatar')
 const formEditIcon = popupEditIcon.querySelector('.popup-form')
 const buttonElement = formEditIcon.querySelector('.popup-form__button')
 
+const editButtonText = (button, text, isLoading) => {
+  if(isLoading) {
+    button.textContent = 'Сохранение...'
+  }
+  else {
+    button.textContent = text
+  }
+}
+
 export {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
   popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
   cardTemplate, cardContainer, popupImage, imagePopup, titlePopup, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, 
-  buttonElementEdit, buttonElementCreate 
+  buttonElementEdit, buttonElementCreate, editButtonText
 }

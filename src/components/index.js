@@ -2,13 +2,13 @@ import '../style/index.css';
 import {disableButton} from './validation.js'
 import {profileName, profileAbout, editButton, addButton,
  popupProfile, formProfileEdit, popupCard, formCard, 
- formProfile, cardContainer, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, buttonElementEdit,  buttonElementCreate} from './utils.js'
+ formProfile, cardContainer, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, buttonElementEdit,  buttonElementCreate, editButtonText,
+popupImage, imagePopup, titlePopup } from './utils.js'
 import {openPopup, closePopup} from './modal.js'
 import {createCard} from './card.js'
 import {getUserInfo, getInitialCards, createCardLoad, deleteCardUser, addLike, deleteLike, userEditIcon, editProfileUser} from './api.js'
 
-
-export let myId
+let myId
 
 Promise.all([getUserInfo(), getInitialCards()])
 .then(res => {
@@ -18,7 +18,7 @@ Promise.all([getUserInfo(), getInitialCards()])
   profileAbout.textContent = res[0].about
   profileAvatar.src = res[0].avatar
   res[1].forEach(data => {
-    const card = createCard(data.name, data.link, data.likes, data.owner._id, data._id, handleDeleteCard, handleAddLike, handleDeleteLike)
+    const card = createCard(data.name, data.link, data.likes, data.owner._id, data._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId)
     cardContainer.append(card)
   })
 })
@@ -33,12 +33,11 @@ function submitAddCardForm(evt) {
   editButtonText(buttonElementCreate, 'создать', true)
   createCardLoad(nameImage, linkImage)
   .then(item => {
-    const newCard = createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike);
+    const newCard = createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId);
     cardContainer.prepend(newCard)
   })
   .then(() => {
-    formCard.text.value = ''
-    formCard.url.value = ''
+    formCard.reset()
     closePopup(popupCard)
   })
   .catch(err => {
@@ -99,6 +98,7 @@ function popupEditIconForm (evt) {
   .then(() => {
     profileAvatar.src = formEditIcon.urlIcon.value 
     closePopup(popupEditIcon) 
+    userEditIcon(formEditIcon.urlIcon) 
     formEditIcon.urlIcon.value = ''
     disableButton(buttonElement)
   })
@@ -108,7 +108,6 @@ function popupEditIconForm (evt) {
   .finally(() => {
     editButtonText(buttonElement, 'сохранить', false)
   })
-  userEditIcon(formEditIcon.urlIcon) 
 } 
 
 function editProfileInfo(evt) {
@@ -138,14 +137,13 @@ profileAvatarBtn.addEventListener('click', () => {
   openPopup(popupEditIcon) 
 }) 
 
-function editButtonText (button, text, isLoading) {
-  if(isLoading) {
-    button.textContent = 'Сохранение...'
-  }
-  else {
-    button.textContent = text
-  }
-}
+function openCardPopup(element) {
+  imagePopup.src = element.src;
+  imagePopup.alt = element.alt;
+  titlePopup.textContent = element.alt
+  openPopup(popupImage)
+} 
+
 
 formEditIcon.addEventListener('submit', popupEditIconForm) 
 formProfileEdit.addEventListener('submit', editProfileInfo)
