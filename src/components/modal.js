@@ -1,7 +1,4 @@
-import {scroll, profileName, profileAbout, editButton, addButton,
-popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile, cardContainer} from './utils.js'
-import {createCard} from './card.js'
-import {editProfileUser} from './api.js'
+import {scroll, popups, popupOverlays} from './utils.js'
 
 function openPopup(popup) {
   popup.classList.add('popup_opened')
@@ -33,33 +30,10 @@ function closeByClick () {
   });  
 }
 
-addButton.addEventListener('click', evt => {
-  openPopup(popupCard)
-});
-
-editButton.addEventListener('click', evt => {
-  formProfile.name.value = profileName.textContent;
-  formProfile.description.value = profileAbout.textContent;
-  openPopup(popupProfile)
-}); 
-
 popups.forEach(popup => {
   popup.addEventListener('click', evt => {
       evt.target.classList.contains('popup__button-close') ? closePopup(popup) : false;
   }); 
 });
 
-function editProfileInfo(evt) {
-  evt.preventDefault();
-  profileName.textContent = formProfileEdit.name.value;
-  profileAbout.textContent = formProfileEdit.description.value;
-  closePopup(popupProfile)
-  editProfileUser({ 
-    name: formProfileEdit.name.value, 
-    about: formProfileEdit.description.value 
-  }) 
-  .catch(err => {
-    console.log(err)
-  }) 
-} 
-export {openPopup, closePopup, closeEscBtn, closeByClick, editProfileInfo}
+export {openPopup, closePopup, closeEscBtn, closeByClick}

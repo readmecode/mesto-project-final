@@ -73,6 +73,10 @@ const toggleButtonState = (inputList, buttonElement, setting) => {
   }
 }
 
+const disableButton = (buttonElement) => {
+  buttonElement.classList.add('popup-form__button_inactive') || buttonElement.setAttribute('disabled', 'disabled')
+}
+
 enableValidation({
   formSelector: '.popup-form',
   inputSelector: '.popup-form__place',
@@ -82,4 +86,4 @@ enableValidation({
   errorClass: 'popup-form__place_error_active'
 });
 
-export {showError, hideError, checkInputValidity, setEventListener, enableValidation}
+export {showError, hideError, checkInputValidity, setEventListener, enableValidation, disableButton}

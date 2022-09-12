@@ -79,5 +79,17 @@ const deleteLike = (cardId) => {
   }) 
   .then(res => checkResult(res)) 
 } 
-export {getUserInfo, getInitialCards, editProfileUser, createCardLoad, deleteCardUser, addLike, deleteLike}
+
+const userEditIcon = (avatarValue) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: avatarValue
+    })
+  })
+  .then(res => checkResult(res))
+}
+
+export {getUserInfo, getInitialCards, editProfileUser, createCardLoad, deleteCardUser, addLike, deleteLike, userEditIcon}
  

@@ -1,5 +1,4 @@
-import {cardTemplate, popupImage, imagePopup, titlePopup
-} from './utils.js'
+import {cardTemplate, popupImage, imagePopup, titlePopup} from './utils.js'
 import {openPopup} from './modal.js'
 import { myId } from './index.js';
 
@@ -55,6 +54,4 @@ function createCard(name, link, likes, ownerId, elemId, handleDeleteCard, handle
   return cardElement
 }
 
-
-
-export {openCardPopup,  createCard}
+export {createCard}

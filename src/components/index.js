@@ -1,11 +1,11 @@
-import '../style/index.css'; // добавьте импорт главного файла стилей
-import {showError, hideError, checkInputValidity, setEventListener, enableValidation} from './validation.js'
-import {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
-popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
-cardTemplate, cardContainer, popupImage, imagePopup, titlePopup} from './utils.js'
-import {openPopup, closePopup, cardAddProfile, closeEscBtn, closeByClick, editProfileInfo} from './modal.js'
-import { createCard} from './card.js'
-import {getUserInfo, getInitialCards, createCardLoad, deleteCardUser, addLike, deleteLike} from './api.js'
+import '../style/index.css';
+import {disableButton} from './validation.js'
+import {profileName, profileAbout, editButton, addButton,
+ popupProfile, formProfileEdit, popupCard, formCard, 
+ formProfile, cardContainer, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, buttonElementEdit,  buttonElementCreate} from './utils.js'
+import {openPopup, closePopup} from './modal.js'
+import {createCard} from './card.js'
+import {getUserInfo, getInitialCards, createCardLoad, deleteCardUser, addLike, deleteLike, userEditIcon, editProfileUser} from './api.js'
 
 
 export let myId
@@ -16,6 +16,7 @@ Promise.all([getUserInfo(), getInitialCards()])
   console.log(res[0]._id)
   profileName.textContent = res[0].name
   profileAbout.textContent = res[0].about
+  profileAvatar.src = res[0].avatar
   res[1].forEach(data => {
     const card = createCard(data.name, data.link, data.likes, data.owner._id, data._id, handleDeleteCard, handleAddLike, handleDeleteLike)
     cardContainer.append(card)
@@ -29,6 +30,7 @@ function submitAddCardForm(evt) {
   evt.preventDefault()
   const linkImage = formCard.url.value;
   const nameImage = formCard.text.value
+  editButtonText(buttonElementCreate, 'создать', true)
   createCardLoad(nameImage, linkImage)
   .then(item => {
     const newCard = createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike);
@@ -41,6 +43,9 @@ function submitAddCardForm(evt) {
   })
   .catch(err => {
     console.log(err)
+  })
+  .finally(() => {
+    editButtonText(buttonElementCreate, 'создать', false)
   })
 } 
 
@@ -76,6 +81,73 @@ function handleDeleteLike(elemId, cardLikes, cardLike) {
   })
 }
 
+addButton.addEventListener('click', evt => {
+  openPopup(popupCard)
+});
+
+editButton.addEventListener('click', evt => {
+  formProfile.name.value = profileName.textContent;
+  formProfile.description.value = profileAbout.textContent;
+  openPopup(popupProfile)
+}); 
+
+
+function popupEditIconForm (evt) { 
+  evt.preventDefault() 
+  editButtonText(buttonElement, 'сохранить', true)
+  userEditIcon(formEditIcon.urlIcon.value)
+  .then(() => {
+    profileAvatar.src = formEditIcon.urlIcon.value 
+    closePopup(popupEditIcon) 
+    formEditIcon.urlIcon.value = ''
+    disableButton(buttonElement)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+  .finally(() => {
+    editButtonText(buttonElement, 'сохранить', false)
+  })
+  userEditIcon(formEditIcon.urlIcon) 
+} 
+
+function editProfileInfo(evt) {
+  evt.preventDefault();
+  editButtonText(buttonElementEdit, 'Сохранить', true)
+  getUserInfo()
+  .then(() => {
+    profileName.textContent = formProfileEdit.name.value;
+    profileAbout.textContent = formProfileEdit.description.value;
+    closePopup(popupProfile)
+  })
+  .then(() => {
+    editProfileUser({ 
+      name: formProfileEdit.name.value, 
+      about: formProfileEdit.description.value 
+    }) 
+  })
+  .catch(err => {
+    console.log(err)
+  }) 
+  .finally(() => {
+    editButtonText(buttonElementEdit, 'Сохранить', false)
+  })
+} 
+
+profileAvatarBtn.addEventListener('click', () => { 
+  openPopup(popupEditIcon) 
+}) 
+
+function editButtonText (button, text, isLoading) {
+  if(isLoading) {
+    button.textContent = 'Сохранение...'
+  }
+  else {
+    button.textContent = text
+  }
+}
+
+formEditIcon.addEventListener('submit', popupEditIconForm) 
 formProfileEdit.addEventListener('submit', editProfileInfo)
 formCard.addEventListener('submit', submitAddCardForm)
 

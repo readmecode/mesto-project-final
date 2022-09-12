@@ -22,7 +22,9 @@
             <section class="profile">
 
                 <div class="profile__info">
-                    <img src="<%=require('./images/logo/Avatar.svg')%>" alt="логотип" class="profile__avatar">
+                    <button type="button" class="profile__avatar-btn">
+                        <img src="" alt="логотип" class="profile__avatar">
+                    </button>
                     <div class="profile__text">
                         <div class="profile__text-upper">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -51,8 +53,10 @@
                    <button class="element__illustration-button" type="button"><img alt="иллюстрация" src="" class="element__illustration"></button> 
                     <div class="element__block-bottom">
                         <h3 class="element__title"></h3>
-                        <button type="button" class="element__icon"><img src="<%=require('./images/logo/Group.svg')%>" alt="иконка"></button>
-                        <p class="element__likes"></p>
+                        <div class="element__container">
+                            <button type="button" class="element__icon"><img src="<%=require('./images/logo/Group.svg')%>" alt="иконка"></button>
+                            <p class="element__likes"></p>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -82,11 +86,11 @@
                 <form action="" name="form" class="popup-form">
                     <h3 class="popup-form__title" novalidate>Редактировать профиль</h3>
                     <fieldset class="popup-form__contact-info">
-                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яА-Я0-9- ]+$" id="input-name" type="text" name="name" class="popup-form__place" placeholder="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яА-Я0-9- ]+$" id="input-name" type="text" name="name" class="popup-form__place" placeholder="Имя" minlength="2" maxlength="40" required>
                             <span class="input-name-error popup-form__place-error"></span>
-                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яА-Я0-9- ]+$" id="input-description" type="text" name="description" class="popup-form__place popup-form_type_name" placeholder="Исследователь океана" minlength="2" maxlength="200" required>
+                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яА-Я0-9- ]+$" id="input-description" type="text" name="description" class="popup-form__place popup-form_type_name" placeholder="Вид деятельности" minlength="2" maxlength="200" required>
                             <span class="input-description-error popup-form__place-error"></span>
-                        <button type="submit" class="popup-form__button">сохранить</button>
+                        <button type="submit" class="popup-form__button">Сохранить</button>
                     </fieldset>
                 </form>
             </div>
@@ -109,11 +113,30 @@
             </div>
             <div class="popup__overlay"></div>
         </div>
-
-
-
     </div>
 
+    <div id="editIcon" class="popup">
+        <div class="popup__container">
+            <button type="button" class="popup__button-close"></button>
+            <form action="" name="formEditIcon" class="popup-form popup-form_edit" novalidate>
+                <h3 class="popup-form__title">Обновить аватар</h3>
+                <fieldset class="popup-form__contact-info">
+                    <input 
+                    data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                    id="input-url-icon" 
+                    type="url" 
+                    name="urlIcon" 
+                    class="popup-form__place popup-form_type_name" 
+                    placeholder="Ссылка на картинку" 
+                    required> 
+                       <span class="input-url-icon-error popup-form__place-error"></span>
+                    <button type="submit" class="popup-form__button">Сохранить</button>
+                </fieldset>
+            </form>
+        </div>
+        <div class="popup__overlay"></div>
+    </div>
+    
     <script type="module" src="./components/index.js"></script>
 </body>
 

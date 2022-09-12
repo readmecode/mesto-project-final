@@ -40,9 +40,10 @@ const popups = document.querySelectorAll('.popup');
 const popupOverlays = document.querySelectorAll('.popup__overlay')
 const popupProfile = document.querySelector('#editInfo');
 const formProfileEdit = popupProfile.querySelector('.popup-form')
+const buttonElementEdit = formProfileEdit.querySelector('.popup-form__button')
 const popupCard = document.querySelector('#addCard');
 const formCard = popupCard.querySelector('.popup-form')
-
+const buttonElementCreate = formCard.querySelector('.popup-form__button')
 const formProfile = popupProfile.querySelector('.popup-form')
 
 /* card */
@@ -52,7 +53,15 @@ const popupImage = document.querySelector('#imageModal');
 const imagePopup = popupImage.querySelector('.popup__illustration');
 const titlePopup = popupImage.querySelector('.popup__title');
 
+/* editIcon */
+const popupEditIcon = document.querySelector('#editIcon');
+const profileAvatarBtn = document.querySelector('.profile__avatar-btn');
+const profileAvatar = profileAvatarBtn.querySelector('.profile__avatar')
+const formEditIcon = popupEditIcon.querySelector('.popup-form')
+const buttonElement = formEditIcon.querySelector('.popup-form__button')
+
 export {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
   popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
-  cardTemplate, cardContainer, popupImage, imagePopup, titlePopup
+  cardTemplate, cardContainer, popupImage, imagePopup, titlePopup, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, 
+  buttonElementEdit, buttonElementCreate 
 }
