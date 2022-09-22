@@ -69,8 +69,17 @@ const editButtonText = (button, text, isLoading) => {
   }
 }
 
+const config = {
+  inputSelector: '.popup-form__place',/*  */
+  submitButtonSelector: '.popup-form__button',/*  */
+  inactiveButtonClass: 'popup-form__button_inactive',
+  inputErrorClass: 'popup-form__place_type_error',
+  errorClass: 'popup-form__place_error_active'
+};
+
+
 export {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
   popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
    cardContainer, popupImage, imagePopup, titlePopup, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, 
-  buttonElementEdit, buttonElementCreate, editButtonText
+  buttonElementEdit, buttonElementCreate, editButtonText, config
 }

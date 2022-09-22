@@ -1,11 +1,11 @@
 import '../style/index.css';
-import {disableButton} from './validation.js'
 import {profileName, profileAbout, editButton, addButton,
  popupProfile, formProfileEdit, popupCard, formCard, 
  formProfile, cardContainer, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, buttonElementEdit,  buttonElementCreate, editButtonText,
-popupImage, imagePopup, titlePopup } from './utils.js'
+  popupImage, imagePopup, titlePopup, config} from './utils.js'
 import {openPopup, closePopup} from './modal.js'
 import createCard from './card';
+import FormValidator from './validation.js';
 import Api from './api.js'
 let myId
 
@@ -56,6 +56,9 @@ function submitAddCardForm(evt) {
     editButtonText(buttonElementCreate, 'создать', false)
   })
 } 
+/* валидация */
+const submitAddCardFormValidator = new FormValidator(config, popupCard)
+submitAddCardFormValidator._enableValidation()
 
 function handleDeleteCard(elemId, elementCard) {
   api.deleteCardUser(elemId)
@@ -119,6 +122,10 @@ function popupEditIconForm (evt) {
   })
 } 
 
+/* валидация */
+const popupEditIconFormValidator = new FormValidator(config, popupEditIcon)
+popupEditIconFormValidator._enableValidation()
+
 function editProfileInfo(evt) {
   evt.preventDefault();
   editButtonText(buttonElementEdit, 'Сохранить', true)
@@ -141,6 +148,10 @@ function editProfileInfo(evt) {
     editButtonText(buttonElementEdit, 'Сохранить', false)
   })
 } 
+
+/* валидация */
+const editProfileInfoValidator = new FormValidator(config, popupProfile)
+editProfileInfoValidator._enableValidation()
 
 profileAvatarBtn.addEventListener('click', () => { 
   openPopup(popupEditIcon) 
