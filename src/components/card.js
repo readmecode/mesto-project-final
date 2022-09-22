@@ -1,52 +1,3 @@
-/* function createCard(name, link, likes, ownerId, elemId, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId) {
-  const cardTemplate = document.querySelector('#card-element').content
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  const cardImage = cardElement.querySelector('.element__illustration');
-  const deleteCard = cardElement.querySelector('.element__delete-button')
-  const cardLike = cardElement.querySelector('.element__icon');
-  const cardLikes = cardElement.querySelector('.element__likes')
-  cardLikes.textContent = likes.length
-
-  cardImage.src = link;
-  cardImage.alt = name
-
-  cardElement.querySelector('.element__title').textContent = name
-
-  cardImage.addEventListener('click', evt => {
-      openCardPopup(cardImage);
-  })
-
-  if(likes) {
-    const myLike = likes.some(like => {
-      return like._id === myId
-    })
-    if(myLike) {
-      cardLike.classList.add('element__icon_active')
-    }
-  }
-  
-  cardLike.addEventListener('click', evt => {
-    if(cardLike.classList.contains('element__icon_active')) {
-      handleDeleteLike(elemId, cardLikes, cardLike)
-    }
-    else {
-      handleAddLike(elemId, cardLikes, cardLike)
-    }
-  })
-
-  if(myId !== ownerId) {
-    deleteCard.classList.add('element__delete-button_disabled')
-  }
-  else {
-  deleteCard.addEventListener('click', evt => {
-    handleDeleteCard(elemId, cardElement)
-  })
-}
-  return cardElement
-}
-
-export {createCard} */
-
 export default class createCard {
   constructor(name, link, likes, ownerId, elemId, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId, selector) {
     this._name = name;
@@ -86,6 +37,10 @@ export default class createCard {
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name
 
+    this._checkLikes()
+    this._setEventListener()
+    this._checkDeleteCard()
+    
     return this.element
   }
 
@@ -129,7 +84,7 @@ export default class createCard {
     }
     else {
     this._deleteCard.addEventListener('click', evt => {
-      this._handleDeleteCard(this._elemId, cardElement)
+      this._handleDeleteCard(this._elemId, this.element)
     })
   }
 }

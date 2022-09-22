@@ -6,7 +6,6 @@ import {profileName, profileAbout, editButton, addButton,
 popupImage, imagePopup, titlePopup } from './utils.js'
 import {openPopup, closePopup} from './modal.js'
 import createCard from './card';
-/* import {getUserInfo, getInitialCards, createCardLoad, deleteCardUser, addLike, deleteLike, userEditIcon, editProfileUser} from './api.js' */
 import Api from './api.js'
 let myId
 
@@ -42,9 +41,9 @@ function submitAddCardForm(evt) {
   editButtonText(buttonElementCreate, 'создать', true)
   api.createCardLoad(nameImage, linkImage)
   .then(item => {
-    const createcard = new createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId);
-    const card = createcard._getTemplateElement()
-    cardContainer.append(card)
+    const createcard = new createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId, '#card-element');
+    const card = createcard._generateCards()
+    cardContainer.prepend(card)
   })
   .then(() => {
     formCard.reset()
