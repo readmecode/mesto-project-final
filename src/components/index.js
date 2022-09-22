@@ -5,20 +5,28 @@ import {profileName, profileAbout, editButton, addButton,
  formProfile, cardContainer, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, buttonElementEdit,  buttonElementCreate, editButtonText,
 popupImage, imagePopup, titlePopup } from './utils.js'
 import {openPopup, closePopup} from './modal.js'
-import {createCard} from './card.js'
-import {getUserInfo, getInitialCards, createCardLoad, deleteCardUser, addLike, deleteLike, userEditIcon, editProfileUser} from './api.js'
-
+import createCard from './card';
+/* import {getUserInfo, getInitialCards, createCardLoad, deleteCardUser, addLike, deleteLike, userEditIcon, editProfileUser} from './api.js' */
+import Api from './api.js'
 let myId
 
-Promise.all([getUserInfo(), getInitialCards()])
+const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
+  headers: {
+    authorization: '926c6a3f-a217-4e7a-afc3-b54f61f5ab3a',
+    'Content-Type': 'application/json'
+  }
+});
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
 .then(res => {
   myId = res[0]._id
-  console.log(res[0]._id)
   profileName.textContent = res[0].name
   profileAbout.textContent = res[0].about
   profileAvatar.src = res[0].avatar
   res[1].forEach(data => {
-    const card = createCard(data.name, data.link, data.likes, data.owner._id, data._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId)
+    const createcard = new createCard(data.name, data.link, data.likes, data.owner._id, data._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId, '#card-element')
+    const card = createcard._generateCards()
     cardContainer.append(card)
   })
 })
@@ -26,15 +34,17 @@ Promise.all([getUserInfo(), getInitialCards()])
   console.log(err)
 })
 
+
 function submitAddCardForm(evt) {
   evt.preventDefault()
   const linkImage = formCard.url.value;
   const nameImage = formCard.text.value
   editButtonText(buttonElementCreate, 'создать', true)
-  createCardLoad(nameImage, linkImage)
+  api.createCardLoad(nameImage, linkImage)
   .then(item => {
-    const newCard = createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId);
-    cardContainer.prepend(newCard)
+    const createcard = new createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId);
+    const card = createcard._getTemplateElement()
+    cardContainer.append(card)
   })
   .then(() => {
     formCard.reset()
@@ -49,7 +59,7 @@ function submitAddCardForm(evt) {
 } 
 
 function handleDeleteCard(elemId, elementCard) {
-  deleteCardUser(elemId)
+  api.deleteCardUser(elemId)
   .then(res => {
     elementCard.remove()
   })
@@ -59,7 +69,7 @@ function handleDeleteCard(elemId, elementCard) {
 }
 
 function handleAddLike(elemId, cardLikes, cardLike) {
-  addLike(elemId)
+  api.addLike(elemId)
   .then((res) => {
     cardLikes.textContent = res.likes.length
     cardLike.classList.add('element__icon_active')
@@ -70,7 +80,7 @@ function handleAddLike(elemId, cardLikes, cardLike) {
 }
 
 function handleDeleteLike(elemId, cardLikes, cardLike) {
-  deleteLike(elemId)
+  api.deleteLike(elemId)
   .then((res) => {
     cardLikes.textContent = res.likes.length
     cardLike.classList.remove('element__icon_active')
@@ -94,7 +104,7 @@ editButton.addEventListener('click', evt => {
 function popupEditIconForm (evt) { 
   evt.preventDefault() 
   editButtonText(buttonElement, 'сохранить', true)
-  userEditIcon(formEditIcon.urlIcon.value)
+  api.userEditIcon(formEditIcon.urlIcon.value)
   .then(() => {
     profileAvatar.src = formEditIcon.urlIcon.value 
     closePopup(popupEditIcon) 
@@ -113,14 +123,14 @@ function popupEditIconForm (evt) {
 function editProfileInfo(evt) {
   evt.preventDefault();
   editButtonText(buttonElementEdit, 'Сохранить', true)
-  getUserInfo()
+  api.getUserInfo()
   .then(() => {
     profileName.textContent = formProfileEdit.name.value;
     profileAbout.textContent = formProfileEdit.description.value;
     closePopup(popupProfile)
   })
   .then(() => {
-    editProfileUser({ 
+    api.editProfileUser({ 
       name: formProfileEdit.name.value, 
       about: formProfileEdit.description.value 
     }) 

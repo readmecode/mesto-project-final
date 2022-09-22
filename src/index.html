@@ -86,9 +86,29 @@
                 <form action="" name="form" class="popup-form">
                     <h3 class="popup-form__title" novalidate>Редактировать профиль</h3>
                     <fieldset class="popup-form__contact-info">
-                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яА-Я0-9- ]+$" id="input-name" type="text" name="name" class="popup-form__place" placeholder="Имя" minlength="2" maxlength="40" required>
+                        <input
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                        pattern="^[a-zA-Zа-яА-Я0-9- ]+$" 
+                        id="input-name" 
+                        type="text" 
+                        name="name" 
+                        class="popup-form__place" 
+                        placeholder="Имя" 
+                        minlength="2" 
+                        maxlength="40" 
+                        required>
                             <span class="input-name-error popup-form__place-error"></span>
-                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яА-Я0-9- ]+$" id="input-description" type="text" name="description" class="popup-form__place popup-form_type_name" placeholder="Вид деятельности" minlength="2" maxlength="200" required>
+                        <input 
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                        pattern="^[a-zA-Zа-яА-Я0-9- ]+$" 
+                        id="input-description" 
+                        type="text" 
+                        name="description" 
+                        class="popup-form__place popup-form_type_name" 
+                        placeholder="Вид деятельности" 
+                        minlength="2" 
+                        maxlength="200" 
+                        required>
                             <span class="input-description-error popup-form__place-error"></span>
                         <button type="submit" class="popup-form__button">Сохранить</button>
                     </fieldset>
@@ -103,9 +123,26 @@
                 <form action="" name="formAdd" class="popup-form" novalidate>
                     <h3 class="popup-form__title">Новое место</h3>
                     <fieldset class="popup-form__contact-info">
-                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яА-Я0-9- ]+$" id="input-title" type="text" name="text" class="popup-form__place" placeholder="Название" minlength="2" maxlength="30" required>
+                        <input 
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                        pattern="^[a-zA-Zа-яА-Я0-9- ]+$" 
+                        id="input-title" 
+                        type="text" 
+                        name="text" 
+                        class="popup-form__place" 
+                        placeholder="Название" 
+                        minlength="2" 
+                        maxlength="30" 
+                        required>
                             <span class="input-title-error popup-form__place-error"></span>
-                        <input data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" id="input-url" type="url" name="url" class="popup-form__place popup-form_type_name" placeholder="Ссылка на картинку" required> 
+                        <input 
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                        id="input-url" 
+                        type="url" 
+                        name="url" 
+                        class="popup-form__place popup-form_type_name" 
+                        placeholder="Ссылка на картинку" 
+                        required> 
                            <span class="input-url-error popup-form__place-error"></span>
                         <button type="submit" class="popup-form__button">создать</button>
                     </fieldset>

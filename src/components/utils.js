@@ -47,7 +47,7 @@ const buttonElementCreate = formCard.querySelector('.popup-form__button')
 const formProfile = popupProfile.querySelector('.popup-form')
 
 /* card */
-const cardTemplate = document.querySelector('#card-element').content;
+
 const cardContainer = document.querySelector('.elements')
 const popupImage = document.querySelector('#imageModal');
 const imagePopup = popupImage.querySelector('.popup__illustration');
@@ -71,6 +71,6 @@ const editButtonText = (button, text, isLoading) => {
 
 export {initialCards, scroll, profile, profileName, profileAbout, editButton, addButton,
   popups, popupOverlays, popupProfile, formProfileEdit, popupCard, formCard, formProfile,
-  cardTemplate, cardContainer, popupImage, imagePopup, titlePopup, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, 
+   cardContainer, popupImage, imagePopup, titlePopup, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, 
   buttonElementEdit, buttonElementCreate, editButtonText
 }
