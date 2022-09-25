@@ -7,6 +7,7 @@ import {openPopup, closePopup} from './modal.js'
 import createCard from './card';
 import FormValidator from './validation.js';
 import Api from './api.js'
+import PopupWithImage from './PopupWithImage.js'
 let myId
 
 const api = new Api({
@@ -157,12 +158,14 @@ profileAvatarBtn.addEventListener('click', () => {
   openPopup(popupEditIcon) 
 }) 
 
-function openCardPopup(element) {
-  imagePopup.src = element.src;
-  imagePopup.alt = element.alt;
-  titlePopup.textContent = element.alt
-  openPopup(popupImage)
+function openCardPopup() {
+  popupWithImage.open(this._name, this._link)
 } 
+
+
+const popupWithImage = new PopupWithImage('#imageModal')
+popupWithImage.setEventListener()
+
 
 
 formEditIcon.addEventListener('submit', popupEditIconForm) 

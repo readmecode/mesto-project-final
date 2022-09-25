@@ -1,4 +1,4 @@
-import {scroll, popups, popupOverlays} from './utils.js'
+/* import {scroll, popups, popupOverlays} from './utils.js'
 
 function openPopup(popup) {
   popup.classList.add('popup_opened')
@@ -36,4 +36,4 @@ popups.forEach(popup => {
   }); 
 });
 
-export {openPopup, closePopup, closeEscBtn, closeByClick}
+export {openPopup, closePopup, closeEscBtn, closeByClick} */
