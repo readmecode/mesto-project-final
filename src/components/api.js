@@ -38,7 +38,7 @@ export default class Api {
       about: data.about
       })
     })
-    .then(this._checkResult)
+    .then(res => console.log(res))
   }
 
    createCardLoad (cardName, cardLink)  { 
@@ -89,14 +89,6 @@ export default class Api {
   }
 }
 
-
-/* const config = { 
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14', 
-  headers: { 
-    authorization: '926c6a3f-a217-4e7a-afc3-b54f61f5ab3a', 
-    'Content-Type': 'application/json' 
-  } 
-} */
 
 
 

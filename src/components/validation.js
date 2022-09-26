@@ -71,6 +71,10 @@ export default class FormValidator {
     })
     this._setEventListener()
   }
+
+  _addButton() {
+    this._buttonElement.classList.add(this._inactiveButtonClass) ||  this._buttonElement.setAttribute('disabled', 'disabled')
+  }
 }
 
 

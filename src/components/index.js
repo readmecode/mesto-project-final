@@ -3,11 +3,11 @@ import {profileName, profileAbout, editButton, addButton,
  popupProfile, formProfileEdit, popupCard, formCard, 
  formProfile, cardContainer, popupEditIcon, profileAvatarBtn, profileAvatar, formEditIcon, buttonElement, buttonElementEdit,  buttonElementCreate, editButtonText,
   popupImage, imagePopup, titlePopup, config} from './utils.js'
-import {openPopup, closePopup} from './modal.js'
 import createCard from './card';
 import FormValidator from './validation.js';
 import Api from './api.js'
 import PopupWithImage from './PopupWithImage.js'
+import PopupWidthForm from './PopupWithForm';
 let myId
 
 const api = new Api({
@@ -35,28 +35,33 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 })
 
 
-function submitAddCardForm(evt) {
-  evt.preventDefault()
-  const linkImage = formCard.url.value;
-  const nameImage = formCard.text.value
-  editButtonText(buttonElementCreate, 'создать', true)
-  api.createCardLoad(nameImage, linkImage)
-  .then(item => {
-    const createcard = new createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId, '#card-element');
-    const card = createcard._generateCards()
-    cardContainer.prepend(card)
-  })
-  .then(() => {
-    formCard.reset()
-    closePopup(popupCard)
-  })
-  .catch(err => {
-    console.log(err)
-  })
-  .finally(() => {
-    editButtonText(buttonElementCreate, 'создать', false)
-  })
-} 
+
+const submitAddCardFormClass = new PopupWidthForm(
+  '#addCard',
+  function submitAddCardForm() {
+    const linkImage = formCard.url.value;
+    const nameImage = formCard.text.value
+    editButtonText(buttonElementCreate, 'создать', true)
+    api.createCardLoad(nameImage, linkImage)
+    .then(item => {
+      const createcard = new createCard(item.name, item.link, [], myId, item._id, handleDeleteCard, handleAddLike, handleDeleteLike, openCardPopup, myId, '#card-element');
+      const card = createcard._generateCards()
+      cardContainer.prepend(card)
+    })
+    .then(() => {
+      formCard.reset()
+      submitAddCardFormClass.close()
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+      editButtonText(buttonElementCreate, 'создать', false)
+    })
+  } 
+)
+
+
 /* валидация */
 const submitAddCardFormValidator = new FormValidator(config, popupCard)
 submitAddCardFormValidator._enableValidation()
@@ -94,70 +99,75 @@ function handleDeleteLike(elemId, cardLikes, cardLike) {
 }
 
 addButton.addEventListener('click', evt => {
-  openPopup(popupCard)
+  submitAddCardFormClass.open()
+  submitAddCardFormClass.setEventListener()
 });
 
 editButton.addEventListener('click', evt => {
   formProfile.name.value = profileName.textContent;
   formProfile.description.value = profileAbout.textContent;
-  openPopup(popupProfile)
+  editPofileInfoClass.open()
+  editPofileInfoClass.setEventListener()
 }); 
 
 
-function popupEditIconForm (evt) { 
-  evt.preventDefault() 
+const popupEditIconFormClass = new PopupWidthForm(
+"#editIcon", 
+function popupEditIconForm() { 
   editButtonText(buttonElement, 'сохранить', true)
   api.userEditIcon(formEditIcon.urlIcon.value)
   .then(() => {
-    profileAvatar.src = formEditIcon.urlIcon.value 
-    closePopup(popupEditIcon) 
-    userEditIcon(formEditIcon.urlIcon) 
+    profileAvatar.src = formEditIcon.urlIcon.value
+    popupEditIconFormClass.close()
     formEditIcon.urlIcon.value = ''
-    disableButton(buttonElement)
+    popupEditIconFormValidator._addButton
   })
-  .catch(err => {
-    console.log(err)
+  .catch((res) => {
+    console.log(res)
   })
   .finally(() => {
     editButtonText(buttonElement, 'сохранить', false)
   })
 } 
+)
+popupEditIconFormClass.setEventListener()
+profileAvatarBtn.addEventListener('click', () => { 
+  popupEditIconFormClass.open() 
+}) 
 
 /* валидация */
 const popupEditIconFormValidator = new FormValidator(config, popupEditIcon)
 popupEditIconFormValidator._enableValidation()
 
-function editProfileInfo(evt) {
-  evt.preventDefault();
-  editButtonText(buttonElementEdit, 'Сохранить', true)
-  api.getUserInfo()
-  .then(() => {
-    profileName.textContent = formProfileEdit.name.value;
-    profileAbout.textContent = formProfileEdit.description.value;
-    closePopup(popupProfile)
-  })
-  .then(() => {
+
+const editPofileInfoClass = new PopupWidthForm(
+  '#editInfo',
+  function editProfileInfo() {
+    editButtonText(buttonElementEdit, 'Сохранить', true)
     api.editProfileUser({ 
       name: formProfileEdit.name.value, 
       about: formProfileEdit.description.value 
     }) 
-  })
-  .catch(err => {
-    console.log(err)
-  }) 
-  .finally(() => {
-    editButtonText(buttonElementEdit, 'Сохранить', false)
-  })
-} 
+    api.getUserInfo()
+    .then(() => {
+      profileName.textContent = formProfileEdit.name.value;
+      profileAbout.textContent = formProfileEdit.description.value;
+      editPofileInfoClass.close()
+    })
+    .catch(err => {
+      console.log(err)
+    }) 
+    .finally(() => {
+      editButtonText(buttonElementEdit, 'Сохранить', false)
+    })
+  } 
+)
 
 /* валидация */
 const editProfileInfoValidator = new FormValidator(config, popupProfile)
 editProfileInfoValidator._enableValidation()
 
-profileAvatarBtn.addEventListener('click', () => { 
-  openPopup(popupEditIcon) 
-}) 
-
+ 
 function openCardPopup() {
   popupWithImage.open(this._name, this._link)
 } 
@@ -166,9 +176,7 @@ function openCardPopup() {
 const popupWithImage = new PopupWithImage('#imageModal')
 popupWithImage.setEventListener()
 
-
-
-formEditIcon.addEventListener('submit', popupEditIconForm) 
-formProfileEdit.addEventListener('submit', editProfileInfo)
-formCard.addEventListener('submit', submitAddCardForm)
+/* formEditIcon.addEventListener('submit', popupEditIconFormClass) 
+formProfileEdit.addEventListener('submit', editProfileInfo) */
+/* formCard.addEventListener('submit', submitAddCardForm) */
 

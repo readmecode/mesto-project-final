@@ -3,8 +3,6 @@ export default class Popup {
     this._scroll = document.querySelector('.body')
     this._popup = document.querySelector(selectorPopup);
     this._handleEscClose = this._handleEscClose.bind(this)
-
-    console.log(this._popup.querySelector('.popup__overlay'))
   }
 
   open() {
