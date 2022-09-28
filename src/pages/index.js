@@ -19,13 +19,15 @@ import {
   buttonElementCreate,
   editButtonText,
   config,
-} from "../components/utils.js"
+} from "../../utils/utils.js"
+
 import Api from "../components/Api.js"
 import createCard from "../components/Card"
 import FormValidator from "../components/Validation.js"
 import PopupWithImage from "../components/PopupWithImage.js"
 import PopupWidthForm from "../components/PopupWithForm"
 import UserInfo from "../components/UserInfo.js"
+import Section from "../components/Section.js"
 
 let myId
 
@@ -38,6 +40,17 @@ const api = new Api({
 })
 
 const user = new UserInfo(".profile__name", ".profile__description")
+
+const cardList = new Section(
+  {
+    renderer: (item) => {
+      const createcard = new createCard(item)
+      const card = createcard._generateCards()
+      cardList.addItem(card)
+    },
+  },
+  cardContainer
+)
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((res) => {
@@ -90,7 +103,7 @@ const submitAddCardFormClass = new PopupWidthForm(
           "#card-element"
         )
         const card = createcard._generateCards()
-        cardContainer.prepend(card)
+        cardList.addItem(card)
       })
       .then(() => {
         formCard.reset()
