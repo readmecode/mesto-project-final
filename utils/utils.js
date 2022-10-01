@@ -1,0 +1,107 @@
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+]
+
+/*  popup  */
+const scroll = document.querySelector(".body")
+
+/* профили  */
+const profile = document.querySelector(".profile")
+const profileName = profile.querySelector(".profile__name")
+const profileAbout = profile.querySelector(".profile__description")
+const editButton = document.querySelector(".profile__edit-button")
+const addButton = document.querySelector(".profile__add-button")
+
+/* profile */
+const popups = document.querySelectorAll(".popup")
+const popupOverlays = document.querySelectorAll(".popup__overlay")
+const popupProfile = document.querySelector("#editInfo")
+const formProfileEdit = popupProfile.querySelector(".popup-form")
+const buttonElementEdit = formProfileEdit.querySelector(".popup-form__button")
+const popupCard = document.querySelector("#addCard")
+const formCard = popupCard.querySelector(".popup-form")
+const buttonElementCreate = formCard.querySelector(".popup-form__button")
+const formProfile = popupProfile.querySelector(".popup-form")
+
+/* card */
+
+const cardContainer = document.querySelector(".elements")
+const popupImage = document.querySelector("#imageModal")
+const imagePopup = popupImage.querySelector(".popup__illustration")
+const titlePopup = popupImage.querySelector(".popup__title")
+
+/* editIcon */
+const popupEditIcon = document.querySelector("#editIcon")
+const profileAvatarBtn = document.querySelector(".profile__avatar-btn")
+const profileAvatar = profileAvatarBtn.querySelector(".profile__avatar")
+const formEditIcon = popupEditIcon.querySelector(".popup-form")
+const buttonElement = formEditIcon.querySelector(".popup-form__button")
+
+const editButtonText = (button, text, isLoading) => {
+  if (isLoading) {
+    button.textContent = "Сохранение..."
+  } else {
+    button.textContent = text
+  }
+}
+
+const config = {
+  inputSelector: ".popup-form__place" /*  */,
+  submitButtonSelector: ".popup-form__button" /*  */,
+  inactiveButtonClass: "popup-form__button_inactive",
+  inputErrorClass: "popup-form__place_type_error",
+  errorClass: "popup-form__place_error_active",
+}
+
+export {
+  initialCards,
+  scroll,
+  profile,
+  profileName,
+  profileAbout,
+  editButton,
+  addButton,
+  popups,
+  popupOverlays,
+  popupProfile,
+  formProfileEdit,
+  popupCard,
+  formCard,
+  formProfile,
+  cardContainer,
+  popupImage,
+  imagePopup,
+  titlePopup,
+  popupEditIcon,
+  profileAvatarBtn,
+  profileAvatar,
+  formEditIcon,
+  buttonElement,
+  buttonElementEdit,
+  buttonElementCreate,
+  editButtonText,
+  config,
+}
