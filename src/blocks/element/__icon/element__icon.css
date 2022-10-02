@@ -1,0 +1,21 @@
+.element__icon {
+    width: 22px;
+    height: 19px;
+    white-space: nowrap;
+    background-image: none;
+    background: none;
+    line-height: inherit;
+    font-size: inherit;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    cursor: pointer;
+    outline: none;
+    text-indent: 0;
+    color: inherit;
+    border: 0
+}
+
+.element__icon:hover {
+    opacity: .5;
+}

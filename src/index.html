@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+</head>
+
+<body class="body">
+    <div class="page">
+
+        <!-- header -->
+        <header class="header">
+            <img src="<%=require('./images/logo/logo.svg')%>" alt="логотип" class="header__logo">
+        </header>
+
+        <main>
+
+            <!-- profile -->
+            <section class="profile">
+
+                <div class="profile__info">
+                    <button type="button" class="profile__avatar-btn">
+                        <img src="" alt="логотип" class="profile__avatar">
+                    </button>
+                    <div class="profile__text">
+                        <div class="profile__text-upper">
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <button type="button" class="profile__edit-button">
+                           <img src="<%=require('./images/illustrations/EditButton.svg')%>" alt="кнопка поменять" class="profile__edit-button">
+                            </button>
+                        </div>
+                        <p class="profile__description">Исследователь океана</p>
+                    </div>
+                </div>
+
+                <button type="button" class="profile__add-button profile__add-border">     
+                    <img src="<%=require('./images/illustrations/Vector(1).svg')%>" alt="кнопка добавить" class="profile__add-button">
+                </button>
+            </section>
+
+            <!-- elements -->
+
+            <section class="elements">
+
+            </section>
+            
+            <template id="card-element">
+                <div class="element">
+                    <button class="element__delete-button" type="button"><img src="<%=require('./images/logo/deleteButton.svg')%>" alt="Кнопка удалить"></button>
+                   <button class="element__illustration-button" type="button"><img alt="иллюстрация" src="" class="element__illustration"></button> 
+                    <div class="element__block-bottom">
+                        <h3 class="element__title"></h3>
+                        <div class="element__container">
+                            <button type="button" class="element__icon"><img src="<%=require('./images/logo/Group.svg')%>" alt="иконка"></button>
+                            <p class="element__likes"></p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!--  окно для иллюстраций -->
+            <div id="imageModal" class="popup">
+                <div class="popup__container">
+                    <button type="button" class="popup__button-close"></button>
+                    <img src="" alt="" class="popup__illustration">
+                    <h3 class="popup__title"></h3>
+                </div>
+                <div class="popup__overlay"></div>
+            </div>
+
+        </main>
+        <!-- footer -->
+        <footer class="footer">
+            <p class="footer__description">&copy; 2022 mesto Russia</p>
+        </footer>
+
+
+        <!-- pop-up  -->
+
+        <div id="editInfo" class="popup">
+            <div class="popup__container">
+                <button type="button" class="popup__button-close"></button>
+                <form action="" name="form" class="popup-form">
+                    <h3 class="popup-form__title" novalidate>Редактировать профиль</h3>
+                    <fieldset class="popup-form__contact-info">
+                        <input
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                        pattern="^[a-zA-Zа-яА-Я0-9- ]+$" 
+                        id="input-name" 
+                        type="text" 
+                        name="name" 
+                        class="popup-form__place" 
+                        placeholder="Имя" 
+                        minlength="2" 
+                        maxlength="40" 
+                        required>
+                            <span class="input-name-error popup-form__place-error"></span>
+                        <input 
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                        pattern="^[a-zA-Zа-яА-Я0-9- ]+$" 
+                        id="input-description" 
+                        type="text" 
+                        name="description" 
+                        class="popup-form__place popup-form_type_name" 
+                        placeholder="Вид деятельности" 
+                        minlength="2" 
+                        maxlength="200" 
+                        required>
+                            <span class="input-description-error popup-form__place-error"></span>
+                        <button type="submit" class="popup-form__button">Сохранить</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="popup__overlay"></div>
+        </div>
+
+        <div id="addCard" class="popup">
+            <div class="popup__container">
+                <button type="button" class="popup__button-close"></button>
+                <form action="" name="formAdd" class="popup-form" novalidate>
+                    <h3 class="popup-form__title">Новое место</h3>
+                    <fieldset class="popup-form__contact-info">
+                        <input 
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                        pattern="^[a-zA-Zа-яА-Я0-9- ]+$" 
+                        id="input-title" 
+                        type="text" 
+                        name="text" 
+                        class="popup-form__place" 
+                        placeholder="Название" 
+                        minlength="2" 
+                        maxlength="30" 
+                        required>
+                            <span class="input-title-error popup-form__place-error"></span>
+                        <input 
+                        data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                        id="input-url" 
+                        type="url" 
+                        name="url" 
+                        class="popup-form__place popup-form_type_name" 
+                        placeholder="Ссылка на картинку" 
+                        required> 
+                           <span class="input-url-error popup-form__place-error"></span>
+                        <button type="submit" class="popup-form__button">создать</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="popup__overlay"></div>
+        </div>
+    </div>
+
+    <div id="editIcon" class="popup">
+        <div class="popup__container">
+            <button type="button" class="popup__button-close"></button>
+            <form action="" name="formEditIcon" class="popup-form popup-form_edit" novalidate>
+                <h3 class="popup-form__title">Обновить аватар</h3>
+                <fieldset class="popup-form__contact-info">
+                    <input 
+                    data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" 
+                    id="input-url-icon" 
+                    type="url" 
+                    name="urlIcon" 
+                    class="popup-form__place popup-form_type_name" 
+                    placeholder="Ссылка на картинку" 
+                    required> 
+                       <span class="input-url-icon-error popup-form__place-error"></span>
+                    <button type="submit" class="popup-form__button">Сохранить</button>
+                </fieldset>
+            </form>
+        </div>
+        <div class="popup__overlay"></div>
+    </div>
+</body>
+
+</html>

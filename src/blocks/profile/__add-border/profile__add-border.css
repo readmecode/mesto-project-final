@@ -1,0 +1,15 @@
+.profile__add-border {
+    border: 2px solid #FFFFFF;
+    border-radius: 2px;
+    width: 150px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 950px) {
+    .profile__add-border {
+        width: 282px;
+    }
+}
