@@ -9,7 +9,7 @@ export default class UserInfo {
     const userData = {
       name: this.userName.textContent,
       about: this.userAbout.textContent,
-      id: this.userId,
+      id: this._id,
       avatar: this.avatar.src,
     }
     return userData
@@ -20,13 +20,13 @@ export default class UserInfo {
   }
 
   getUserId() {
-    return this.userId
+    return this._id
   }
 
   setUserInfo(data) {
     this.userName.textContent = data.name
     this.userAbout.textContent = data.about
-    this.userId = data.id
+    this._id = data._id
     this.avatar.src = data.avatar
   }
 }

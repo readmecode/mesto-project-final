@@ -44,8 +44,8 @@ const user = new UserInfo(".profile__name", ".profile__description", ".profile__
 
 const cardList = new Section(
   {
-    renderer: (item) => {
-      const card = createCard(item)
+    renderer: (items) => {
+      const card = createCard(items)
       cardList.addItem(card)
     },
   },
@@ -62,9 +62,9 @@ function createCard(item) {
     handleDeleteCard,
     handleAddLike,
     handleDeleteLike,
-    openCardPopup,
+    handleCardClick,
     myId,
-    "#card-element"
+    "#card-element",
   )
   return cardElement
 }
@@ -72,11 +72,13 @@ function createCard(item) {
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then((res) => {
     myId = res[0]._id
-    profileName.textContent = res[0].name
-    profileAbout.textContent = res[0].about
-    profileAvatar.src = res[0].avatar
-    res[1].forEach((item) => {
-      const card = createCard(item).generateCard()
+    user.setUserInfo({
+      name: res[0].name,
+      about: res[0].about,
+      avatar: res[0].avatar
+    })
+    res[1].forEach((items) => {
+      const card = createCard(items).generateCard()
       cardList.addItem(card)
     })
   })
@@ -87,8 +89,9 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 const submitAddCardFormClass = new PopupWidthForm(
   "#addCard",
   function submitAddCardForm() {
-    const linkImage = formCard.url.value
-    const nameImage = formCard.text.value
+    const addCardInput = submitAddCardFormClass.getInputValues()
+    const linkImage = addCardInput.url;
+    const nameImage = addCardInput.text;
     editButtonText(buttonElementCreate, "создать", true)
 
     api
@@ -123,24 +126,22 @@ function handleDeleteCard(elemId, elementCard) {
     })
 }
 
-function handleAddLike(elemId, cardLikes, cardLike) {
+function handleAddLike(elemId, cardLikes) {
   api
     .addLike(elemId)
     .then((res) => {
       cardLikes.textContent = res.likes.length
-      cardLike.classList.add("element__icon_active")
     })
     .catch((err) => {
       console.log(err)
     })
 }
 
-function handleDeleteLike(elemId, cardLikes, cardLike) {
+function handleDeleteLike(elemId, cardLikes) {
   api
     .deleteLike(elemId)
     .then((res) => {
       cardLikes.textContent = res.likes.length
-      cardLike.classList.remove("element__icon_active")
     })
     .catch((err) => {
       console.log(err)
@@ -149,7 +150,6 @@ function handleDeleteLike(elemId, cardLikes, cardLike) {
 submitAddCardFormClass.setEventListener()
 
 addButton.addEventListener("click", () => {
-  submitAddCardFormValidator.disableButton()
   submitAddCardFormClass.open()
   submitAddCardFormValidator.resetValidation()
 })
@@ -190,7 +190,6 @@ popupEditIconFormClass.setEventListener()
 
 profileAvatarBtn.addEventListener("click", () => {
   popupEditIconFormClass.open()
-  popupEditIconFormValidator.disableButton()
   popupEditIconFormValidator.resetValidation()
 })
 
@@ -234,9 +233,9 @@ editButton.addEventListener("click", () => {
   editProfileInfoValidator.resetValidation()
 })
 
-function openCardPopup() {
-  popupWithImage.open(this._name, this._link)
-}
+function handleCardClick(name, link) {
+  popupWithImage.open(name, link)
+ }
 
 const popupWithImage = new PopupWithImage("#imageModal")
 popupWithImage.setEventListener()

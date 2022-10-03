@@ -8,9 +8,9 @@ export default class Card {
     handleDeleteCard,
     handleAddLike,
     handleDeleteLike,
-    openCardPopup,
+    handleCardClick,
     myId,
-    selector
+    selector,
   ) {
     this._name = name
     this._link = link
@@ -20,7 +20,7 @@ export default class Card {
     this._handleDeleteCard = handleDeleteCard
     this._handleAddLike = handleAddLike
     this._handleDeleteLike = handleDeleteLike
-    this._openCardPopup = openCardPopup
+    this._handleCardClick = handleCardClick;
     this._myId = myId
     this._selector = selector
   }
@@ -28,7 +28,8 @@ export default class Card {
   _getTemplateElement() {
     const cardElement = document
       .querySelector(this._selector)
-      .content.querySelector(".element")
+      .content
+      .querySelector(".element")
       .cloneNode(true)
 
     return cardElement
@@ -66,19 +67,21 @@ export default class Card {
       }
     }
   }
-
+ 
   _setEventListener() {
     this._cardImage.addEventListener("click", (evt) => {
-      this._openCardPopup(this._cardImage)
+      this._handleCardClick(this._name, this._link)
     })
   }
 
   _toggleLikes() {
     this._cardLike.addEventListener("click", (evt) => {
       if (this._cardLike.classList.contains("element__icon_active")) {
-        this._handleDeleteLike(this._elemId, this._cardLikes, this._cardLike)
+        this._handleDeleteLike(this._elemId, this._cardLikes)
+        this._cardLike.classList.remove("element__icon_active")
       } else {
-        this._handleAddLike(this._elemId, this._cardLikes, this._cardLike)
+        this._handleAddLike(this._elemId, this._cardLikes)
+        this._cardLike.classList.add("element__icon_active")
       }
     })
   }
