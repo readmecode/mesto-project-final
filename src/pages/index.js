@@ -19,7 +19,7 @@ import {
   buttonElementCreate,
   editButtonText,
   config,
-} from "../../utils/utils.js"
+} from "../utils/utils.js"
 
 import Api from "../components/Api.js"
 import Card from "../components/Card"
@@ -66,7 +66,34 @@ function createCard(item) {
     myId,
     "#card-element",
   )
+
+  function handleAddLike(elemId)  {
+    api
+      .addLike(elemId)
+      .then((res) => {
+        cardElement.hitLike()
+        cardElement.updateCountLikes(res.likes.length)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  
+  function handleDeleteLike (elemId) {
+    api
+      .deleteLike(elemId)
+      .then((res) => {
+        cardElement.removeLike()
+        cardElement.updateCountLikes(res.likes.length)
+      })
+      .catch((err) => {
+        console.log(err)      
+      })
+  }
+  
   return cardElement
+
+
 }
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -126,27 +153,6 @@ function handleDeleteCard(elemId, elementCard) {
     })
 }
 
-function handleAddLike(elemId, cardLikes) {
-  api
-    .addLike(elemId)
-    .then((res) => {
-      cardLikes.textContent = res.likes.length
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
-
-function handleDeleteLike(elemId, cardLikes) {
-  api
-    .deleteLike(elemId)
-    .then((res) => {
-      cardLikes.textContent = res.likes.length
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
 submitAddCardFormClass.setEventListener()
 
 addButton.addEventListener("click", () => {

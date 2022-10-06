@@ -23,6 +23,8 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._myId = myId
     this._selector = selector
+    
+    this.updateLikesCount = this.updateLikesCount.bind(this)
   }
 
   _getTemplateElement() {
@@ -78,10 +80,8 @@ export default class Card {
     this._cardLike.addEventListener("click", (evt) => {
       if (this._cardLike.classList.contains("element__icon_active")) {
         this._handleDeleteLike(this._elemId, this._cardLikes)
-        this._cardLike.classList.remove("element__icon_active")
       } else {
         this._handleAddLike(this._elemId, this._cardLikes)
-        this._cardLike.classList.add("element__icon_active")
       }
     })
   }
@@ -94,5 +94,22 @@ export default class Card {
         this._handleDeleteCard(this._elemId, this.element)
       })
     }
+  }
+
+
+  updateLikesCount(count) {
+    this._cardLikes.textContent = count
+  } 
+
+  hitLike() {
+    this._cardLike.classList.add("element__icon_active")
+  }
+
+  removeLike () {
+    this._cardLike.classList.remove("element__icon_active")
+  }
+
+  updateCountLikes(count) {
+    this._cardLikes.textContent = count
   }
 }
